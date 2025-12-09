@@ -22,7 +22,7 @@ export interface ModelConfig {
 export function getModel(task: TaskType): ModelConfig {
   // Allow override via environment variable (for all tasks)
   const globalModel = process.env.BRAINBOLT_MODEL;
-  
+
   // Task-specific model overrides (optional)
   const taskModels: Record<TaskType, string | undefined> = {
     formatter: process.env.BRAINBOLT_MODEL_FORMATTER,
@@ -36,7 +36,7 @@ export function getModel(task: TaskType): ModelConfig {
     formatter: "x-ai/grok-4.1-fast",
     flashcards: "x-ai/grok-4.1-fast",
     mcqs: "x-ai/grok-4.1-fast",
-    concept_booster: "x-ai/grok-4.1", // Higher quality for complex learning
+    concept_booster: "meta-llama/llama-3.1-70b-instruct", // Fast, reliable, and high quality
   };
 
   // Task-specific temperature settings

@@ -518,12 +518,9 @@ Provide feedback comparing the user's response with the ideal response.`;
     // Parse the JSON response
     let parsedResponse: any;
     try {
-      let cleanedResponse = llmResponse.trim();
-      if (cleanedResponse.startsWith("```json")) {
-        cleanedResponse = cleanedResponse.replace(/^```json\s*/, "").replace(/\s*```$/, "");
-      } else if (cleanedResponse.startsWith("```")) {
-        cleanedResponse = cleanedResponse.replace(/^```\s*/, "").replace(/\s*```$/, "");
-      }
+      // Extract JSON from response (handles Markdown code blocks and preambles)
+      const jsonMatch = llmResponse.match(/\{[\s\S]*\}/);
+      let cleanedResponse = jsonMatch ? jsonMatch[0] : llmResponse.trim();
 
       parsedResponse = JSON.parse(cleanedResponse);
 
